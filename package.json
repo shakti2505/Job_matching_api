@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "tsx watch --env-file=.env src/server.ts",
+    "seed": "tsx --env-file=.env scripts/seed.ts",
     "build": "tsc",
     "test": "vitest"
   },

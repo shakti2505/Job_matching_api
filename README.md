@@ -30,15 +30,21 @@ The API will be available at `http://localhost:3000`.
    ```bash
    cp .env.example .env  # or ensure .env has PGUSER, PGPASSWORD, PGDATABASE, PGPORT, PGHOST
    ```
-4. Start the development server with live reload:
+4. Seed database and run instant evaluation demo:
+   ```bash
+   npm run seed
+   ```
+   *(Inserts sample candidates and jobs, computes recommendations, and prints formatted score breakdowns directly in the terminal)*
+
+5. Start the development server with live reload:
    ```bash
    npm run dev
    ```
-5. Run tests:
+6. Run tests:
    ```bash
    npm test
    ```
-6. Build for production:
+7. Build for production:
    ```bash
    npm run build
    npm start
