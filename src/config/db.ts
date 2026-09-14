@@ -18,8 +18,26 @@ export async function initializeDB(): Promise<void> {
     ? __dirname
     : path.dirname(fileURLToPath(import.meta.url));
 
-  const sqlPath = path.join(currentDir, 'init.sql');
-  const sql = await fs.readFile(sqlPath, 'utf-8');
+  const candidatePaths = [
+    path.join(currentDir, 'init.sql'),
+    path.resolve(process.cwd(), 'src/config/init.sql'),
+    path.resolve(process.cwd(), 'dist/config/init.sql'),
+    path.resolve(process.cwd(), 'config/init.sql'),
+  ];
+
+  let sql: string | null = null;
+  for (const candidatePath of candidatePaths) {
+    try {
+      sql = await fs.readFile(candidatePath, 'utf-8');
+      break;
+    } catch {
+      // Try next path
+    }
+  }
+
+  if (!sql) {
+    throw new Error('Unable to locate init.sql database initialization script');
+  }
 
   await pool.query(sql);
 }
